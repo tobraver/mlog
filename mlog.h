@@ -18,6 +18,11 @@
 
 // TODO: multi log
 #define LOG_MULTI_ENABLE 0
+#if LOG_MULTI_ENABLE
+#define MLOGI       spdlog::get("multi")->info
+#define MLOGW       spdlog::get("multi")->warn
+#define MLOGE       spdlog::get("multi")->error
+#endif
 
 // console log
 #define CLOGI       spdlog::get("console")->info
