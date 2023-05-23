@@ -1,6 +1,7 @@
 #ifndef __MLOG_H__
 #define __MLOG_H__
 
+#include <iostream>
 #include "spdlog/spdlog.h"
 
 // format 
@@ -16,13 +17,21 @@
 #define LOG_PATTERN_0   "[%Y-%m-%d %H:%M:%S.%e] %^[%L]%$: %v"
 #define LOG_PATTERN_1   "[%Y-%m-%d %H:%M:%S.%e] [%n] %^[%l]%$: %v"
 
-// TODO: multi log
-#define LOG_MULTI_ENABLE 0
+// multi log: console + daily log
+#define LOG_MULTI_ENABLE 1
+
 #if LOG_MULTI_ENABLE
+
 #define MLOGI       spdlog::get("multi")->info
 #define MLOGW       spdlog::get("multi")->warn
 #define MLOGE       spdlog::get("multi")->error
-#endif
+
+// log
+#define LOGI        MLOGI
+#define LOGW        MLOGW
+#define LOGE        MLOGE
+
+#else
 
 // console log
 #define CLOGI       spdlog::get("console")->info
@@ -38,6 +47,8 @@
 #define LOGI        CLOGI
 #define LOGW        CLOGW
 #define LOGE        CLOGE
+
+#endif
 
 void mlog_init(void);
 void mlog_deinit(void);
